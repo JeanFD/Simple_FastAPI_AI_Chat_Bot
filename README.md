@@ -1,6 +1,6 @@
 ﻿# Simple FastAPI AI Chat Bot
 
-Chat Bot simples com **FastAPI** e **Llama 3** (via Groq), desenvolvido seguindo [este tutorial](https://www.youtube.com/watch?v=rTHv9UFjYoU&t).
+Chat Bot simples com **FastAPI** e **Llama 3** (via Groq).
 
 ## Como rodar
 
@@ -14,4 +14,5 @@ Abra o `index.html` no navegador.
 
 ## Techs
 FastAPI, Groq/Llama 3, HTML/JS.
+
 
