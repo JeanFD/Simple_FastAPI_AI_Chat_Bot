@@ -11,8 +11,8 @@ function appendMessage(text, sender){
     textBubble.textContent=text;
 
     if(sender =="bot"){
-        const iconImg = document.createElement(img);
-        iconImg.src="logo.jpg";
+        const iconImg = document.createElement("img");
+        iconImg.src="logo.webp";
         iconImg.classList.add("bot-chat-logo");
         iconImg.alt="bot logo";
         msgDiv.appendChild(iconImg);
@@ -22,13 +22,30 @@ function appendMessage(text, sender){
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-function sendMessage(){
+async function sendMessage(){
     const message = inputMessage.value.trim();
 
     if(!message) return ;
     appendMessage(message, "user");
     inputMessage.value = '';
     sendBtn.disabled=true;
+
+    try{
+        const response = await fetch("http://127.0.0.1:8000/chat", {
+            method:'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify({message})
+        })
+
+        if(!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+        appendMessage(data.reply, "bot");
+    } catch (error){
+        appendMessage('Error: Could not reach the server.', 'bot');
+    } finally{
+        sendBtn.disabled=False;
+    }
 }
 
 sendBtn.addEventListener("click", sendMessage);
